@@ -1,30 +1,42 @@
-import argparse
+
 from db.db import create_db
-
-def number(s: str):
-    try:
-        return int(s)
-    except ValueError:
-        try:
-            return float(s)
-        except ValueError:
-            raise argparse.ArgumentTypeError(
-                f"{s} not number valido: 3 or 3.14"
-            )
-
-
+from crud import insert_register, update_register, reade_register,delete_register
+from parser_args import parser_args
 
 def main():
     create_db()
-    parser = argparse.ArgumentParser(prog="app", description="Mi cli")
-    parser.add_argument("-w", "--weight", help="your weight and enter a number type int(3) o float(3.14)", type=number)
-    parser.add_argument("-e", "--exercise", help="Enter if did ejercise: yes or not", default=False)
+    
+
+    args = parser_args()
+    
+    if args.reade == "yes":
+        print("------ Registers ------")
+        registers = reade_register()
+        for re in registers:
+            print(re)
+        print("------------------------")
 
 
-    args = parser.parse_args()
+    # insertar registros
+    if args.id == None and (args.weight != None or args.exercise != None ):
+        insert_register(weight=args.weight, exercise=args.exercise)
     
+    if args.id != None and (args.weight != None or args.exercise != None):
+        update_register(id=args.id, weight=args.weight, exercise=args.exercise)
+
+    if args.id !=None and args.delete != None: 
+        delete_register(id=args.id)
+
     
-    print(f"{args}")
+    if args.ids !=None and args.delete != None:
+        for id in args.ids:
+            try: 
+                registers_id = int(id)
+            except ValueError:
+                print(f"Not is type int {id}")
+                continue
+
+            delete_register(registers_id)
 
 if __name__ == "__main__":
     main()

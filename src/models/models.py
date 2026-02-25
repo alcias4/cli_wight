@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, Field
+from typing import Optional
 
 class User(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    weight: int | float = Field(default=None)
-    exercise: bool =  Field(default=False)
+    id: int = Field(default=None, primary_key=True)
+    weight: Optional[float]
+    exercise: Optional[bool]
