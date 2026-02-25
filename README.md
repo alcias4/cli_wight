@@ -1,0 +1,1 @@
+# doc : comando : uv tool install --editable . hacer un cli comandos funcione 
