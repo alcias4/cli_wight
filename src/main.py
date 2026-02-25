@@ -1,21 +1,18 @@
 
 from db.db import create_db
-from crud import insert_register, update_register, reade_register,delete_register
-from parser_args import parser_args
+from db.crud import insert_register, update_register,delete_register
+from cli.commands import parser_args
+from ui.table_info import table_info
+
 
 def main():
     create_db()
     
 
     args = parser_args()
-    
-    if args.reade == "yes":
-        print("------ Registers ------")
-        registers = reade_register()
-        for re in registers:
-            print(re)
-        print("------------------------")
 
+
+    table_info(args=args)
 
     # insertar registros
     if args.id == None and (args.weight != None or args.exercise != None ):
@@ -37,6 +34,13 @@ def main():
                 continue
 
             delete_register(registers_id)
+
+
+
+            
+        
+    
+
 
 if __name__ == "__main__":
     main()

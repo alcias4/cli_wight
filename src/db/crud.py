@@ -1,12 +1,12 @@
-from sqlmodel import create_engine, Session, select, Sequence   
+from sqlmodel import create_engine, Session, select
 from db.db import DATABASE_URL
 from models.models import User
-
+from typing import Sequence
 
 
 engine = create_engine(DATABASE_URL)
 
-def insert_register(weight: float = None, exercise: bool = None):
+def insert_register(weight: float, exercise: bool):
     with Session(engine) as session:
         register = User(exercise=exercise, weight=weight)
         session.add(register)
