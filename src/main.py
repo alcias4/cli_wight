@@ -1,46 +1,12 @@
 
 from db.db import create_db
-from db.crud import insert_register, update_register,delete_register
 from cli.commands import parser_args
-from ui.table_info import table_info
-
+from cli.handlers import process_args
 
 def main():
     create_db()
-    
-
     args = parser_args()
-
-
-    table_info(args=args)
-
-    # insertar registros
-    if args.id == None and (args.weight != None or args.exercise != None ):
-        insert_register(weight=args.weight, exercise=args.exercise)
-    
-    if args.id != None and (args.weight != None or args.exercise != None):
-        update_register(id=args.id, weight=args.weight, exercise=args.exercise)
-
-    if args.id !=None and args.delete != None: 
-        delete_register(id=args.id)
-
-    
-    if args.ids !=None and args.delete != None:
-        for id in args.ids:
-            try: 
-                registers_id = int(id)
-            except ValueError:
-                print(f"Not is type int {id}")
-                continue
-
-            delete_register(registers_id)
-
-
-
-            
-        
-    
-
+    process_args(args=args)
 
 if __name__ == "__main__":
     main()

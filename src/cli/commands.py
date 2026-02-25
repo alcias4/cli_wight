@@ -2,19 +2,62 @@ import argparse
 from argparse import Namespace
 
 def parser_args() -> Namespace:
-    parser = argparse.ArgumentParser(prog="app", description="Mi cli")
-    parser.add_argument("-w", "--weight", help="your weight and enter a number type int(3) o float(3.14)", type=number, default=None)
-    parser.add_argument("-e", 
-                        "--exercise", 
-                        help='Enter if did ejercise: False: ["false", "f", "no", "n", "0"]  o True:["true", "yes", "si", "y", "t", "1"] ', 
-                        type=strbool, 
-                        default=None)
-    parser.add_argument("-i", "--id", help="for update a register with the id", type=int, default=None)
-    parser.add_argument("--ids", help="list of ids for remove multiple register ", nargs="+", default=None)
 
-    parser.add_argument("-r", "--reade", help="reade register all", default=None, type=str)
-    parser.add_argument("-d", "--delete", help='Delete bool + id = remove register in position : False: ["false", "f", "no", "n", "0"]  o True:["true", "yes", "si", "y", "t", "1"] ', default=None, type=strbool)
+    parser = argparse.ArgumentParser(
+        prog="app",
+        description="CLI to track weight and exercise"
+    )
 
+    parser.add_argument(
+        "-w", "--weight",
+        help="Weight to create/update a record (int or float). Example: 70 or 70.5",
+        type=number,
+        default=None
+    )
+
+    parser.add_argument(
+        "-e", "--exercise",
+        help='Whether you exercised (true/false). '
+            'True: y, yes, si, true, t, 1 | False: n, no, false, f, 0',
+        type=strbool,
+        default=None
+    )
+
+    parser.add_argument(
+        "-i", "--id",
+        help="Record ID to update or delete. Example: -i 3",
+        type=int,
+        default=None
+    )
+
+    parser.add_argument(
+        "--ids",
+        help="List of record IDs to delete multiple records. Example: --ids 1 2 3",
+        nargs="+",
+        default=None
+    )
+
+    parser.add_argument(
+        "-r", "--reade",
+        help="Show records (example: -r y).",
+        default=None,
+        type=str
+    )
+
+    parser.add_argument(
+        "-d", "--delete",
+        help='Delete record(s) (use with -i or --ids). '
+            'Accepts true/false: y, yes, si, true, 1 | n, no, false, 0',
+        default=None,
+        type=strbool
+    )
+
+    parser.add_argument(
+        "-g", "--grafic",
+        help="Grafic weight vs id or count ex: -g yes or y",
+        type=strbool,
+        default=None
+    )
     
 
     args = parser.parse_args()
