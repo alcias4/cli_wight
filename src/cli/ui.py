@@ -46,9 +46,18 @@ def grafic_ui():
         weight.append(float(row["weight"]))
         id.append(int(row["id"]))
 
-    plt.plot(id, weight, label="trend")
-    plt.title("weight trend")
-    plt.xlabel("Day")
-    plt.ylabel("Weight (kg)")
-    plt.grid(True)
-    plt.show()
+    if len(weight) > 0:
+        plt.clear_figure()  
+        plt.plot(id, weight)
+
+        if len(weight) < 5:
+            plt.plotsize(30, 10)
+        elif len(weight) < 10:
+            plt.plotsize(50, 20)
+
+        plt.title("weight trend")
+        plt.xlabel("Day")
+        plt.ylabel("Weight (kg)")
+        plt.show()
+    else:
+        print("No hay datos para graficar")
